@@ -58,8 +58,8 @@ final class Snapshot
         return $this->content;
     }
 
-    public function update(string $actual) : void
+    public function update(string $actual, string $requestUrl) : void
     {
-        $this->content = $this->driver->serialize($actual);
+        $this->content = $this->driver->serialize($actual, $requestUrl);
     }
 }

@@ -22,14 +22,14 @@ final class MyUnitTest extends TestCase
             'foo' => 'bar',
         ]);
         
-        $this->assertMatchesJsonSnapshot($myJsonData);
+        $this->assertMatchesJsonSnapshot($myJsonData, 'localhost/json-test-route');
     }    
     
     public function testXml()
     {
         $myXmlData = "<?xml version="1.0" encoding="UTF-8"?><root><id>7d644cc6-70fa-11e9-89e1-220d3e3a2561</id></root>";
         
-        $this->assertMatchesXmlSnapshot($myJsonData);
+        $this->assertMatchesXmlSnapshot($myJsonData, 'localhost/xml-test-route');
     }
 }
 ```
@@ -51,7 +51,7 @@ final class MyUnitTest extends TestCase
             'foo' => 'bar',
         ]);
         
-        $this->assertMatchesJsonSnapshot($myJsonData, [
+        $this->assertMatchesJsonSnapshot($myJsonData, 'localhost/json-test-route', [
             new UuidWildcard('id'),
         ]);
     }    
@@ -60,7 +60,7 @@ final class MyUnitTest extends TestCase
     {
         $myXmlData = '<?xml version="1.0" encoding="UTF-8"?><root><id>7d644cc6-70fa-11e9-89e1-220d3e3a2561</id></root>';
 
-        $this->assertMatchesXmlSnapshot($myXmlData, [
+        $this->assertMatchesXmlSnapshot($myXmlData, 'localhost/xml-test-route', [
             new UuidWildcard('id'),
         ]);
     }

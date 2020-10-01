@@ -64,17 +64,17 @@ trait MatchesSnapshots
     /**
      * @param Wildcard[] $wildcards
      */
-    public function assertMatchesJsonSnapshot(string $actual, array $wildcards = []) : void
+    public function assertMatchesJsonSnapshot(string $actual, string $requestUrl, array $wildcards = []) : void
     {
-        $this->doSnapshotAssertion($actual, new JsonDriver(), $wildcards);
+        $this->doSnapshotAssertion($actual, new JsonDriver(), $requestUrl, $wildcards);
     }
 
     /**
      * @param Wildcard[] $wildcards
      */
-    public function assertMatchesXmlSnapshot(string $actual, array $wildcards = []) : void
+    public function assertMatchesXmlSnapshot(string $actual, string $requestUrl, array $wildcards = []) : void
     {
-        $this->doSnapshotAssertion($actual, new XmlDriver(), $wildcards);
+        $this->doSnapshotAssertion($actual, new XmlDriver(), $requestUrl, $wildcards);
     }
 
     /**
@@ -130,7 +130,7 @@ trait MatchesSnapshots
     /**
      * @param Wildcard[] $wildcards
      */
-    private function doSnapshotAssertion(string $actual, Driver $driver, array $wildcards = []): void
+    private function doSnapshotAssertion(string $actual, Driver $driver, string $requestUrl, array $wildcards = []): void
     {
         $this->snapshotIncrementer++;
 
@@ -152,7 +152,7 @@ trait MatchesSnapshots
         if (!$snapshotHandler->snapshotExists($snapshot)) {
             $this->assertSnapshotShouldBeCreated($filename);
 
-            $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual);
+            $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual, $requestUrl);
         }
 
         if ($this->shouldUpdateSnapshots()) {
@@ -162,7 +162,7 @@ trait MatchesSnapshots
                 // mark the test as incomplete.
                 $snapshot->assertMatches($actual, $wildcards);
             } catch (ExpectationFailedException $exception) {
-                $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual);
+                $this->updateSnapshotAndMarkTestIncomplete($snapshot, $actual, $requestUrl);
             }
         }
 
@@ -173,9 +173,9 @@ trait MatchesSnapshots
         }
     }
 
-    private function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual): void
+    private function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
     {
-        $snapshot->update($actual);
+        $snapshot->update($actual, $requestUrl);
 
         $snapshotFactory = new SnapshotHandler(new Filesystem($this->getSnapshotDirectory()));
         $snapshotFactory->writeToFilesystem($snapshot);
@@ -183,9 +183,9 @@ trait MatchesSnapshots
         $this->registerSnapshotChange(sprintf('Snapshot created for %s', $snapshot->getId()));
     }
 
-    private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual): void
+    private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
     {
-        $snapshot->update($actual);
+        $snapshot->update($actual,  $requestUrl);
 
         $snapshotFactory = new SnapshotHandler(new Filesystem($this->getSnapshotDirectory()));
         $snapshotFactory->writeToFilesystem($snapshot);

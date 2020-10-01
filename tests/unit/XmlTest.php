@@ -151,6 +151,6 @@ XML;
             new StringWildcard('CstmrDrctDbtInitn.PmtInf.DrctDbtTxInf[*].PmtId.EndToEndId'),
         ];
 
-        $this->assertMatchesXmlSnapshot($data, $wildcards);
+        $this->assertMatchesXmlSnapshot($data, 'localhost/xml-test-route', $wildcards);
     }
 }

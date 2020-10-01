@@ -19,7 +19,7 @@ use function simplexml_load_string;
 
 final class XmlDriver implements Driver
 {
-    public function serialize(string $xml) : string
+    public function serialize(string $xml, string $requestUrl) : string
     {
         $doc                     = new DOMDocument();
         $doc->preserveWhiteSpace = false;

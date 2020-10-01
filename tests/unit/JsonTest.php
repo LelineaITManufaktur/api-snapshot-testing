@@ -96,7 +96,7 @@ class JsonTest extends TestCase
             new DateTimeOrNullWildcard('tests.dateTimeOrNull[*]'),
         ];
 
-        $this->assertMatchesJsonSnapshot($data, $wildcards);
+        $this->assertMatchesJsonSnapshot($data, 'localhost/json-test-route-a', $wildcards);
     }
 
     /**
@@ -157,7 +157,7 @@ class JsonTest extends TestCase
             ]
         );
         $this->expectException(InvalidMappingPath::class);
-        $this->assertMatchesJsonSnapshot($data, [$wildcard]);
+        $this->assertMatchesJsonSnapshot($data, 'localhost/json-test-route-b', [$wildcard]);
     }
 
     public function provideFail() : array
