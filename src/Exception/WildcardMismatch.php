@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting\Exception;
+namespace Lelinea\SnapshotTesting\Exception;
 
 use Exception;
 use function sprintf;

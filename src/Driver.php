@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting;
+namespace Lelinea\SnapshotTesting;
 
-use KigaRoo\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\SnapshotTesting\Wildcard\Wildcard;
 
 interface Driver
 {

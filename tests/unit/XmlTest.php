@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use KigaRoo\SnapshotTesting\MatchesSnapshots;
-use KigaRoo\SnapshotTesting\Wildcard\DateTimeWildcard;
-use KigaRoo\SnapshotTesting\Wildcard\StringWildcard;
+use Lelinea\SnapshotTesting\MatchesSnapshots;
+use Lelinea\SnapshotTesting\Wildcard\DateTimeWildcard;
+use Lelinea\SnapshotTesting\Wildcard\StringWildcard;
 use PHPUnit\Framework\TestCase;
 
 class XmlTest extends TestCase

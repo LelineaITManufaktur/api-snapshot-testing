@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting\Driver;
+namespace Lelinea\SnapshotTesting\Driver;
 
-use KigaRoo\SnapshotTesting\Accessor;
-use KigaRoo\SnapshotTesting\Driver;
-use KigaRoo\SnapshotTesting\Exception\CantBeSerialized;
-use KigaRoo\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\SnapshotTesting\Accessor;
+use Lelinea\SnapshotTesting\Driver;
+use Lelinea\SnapshotTesting\Exception\CantBeSerialized;
+use Lelinea\SnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\Assert;
 use stdClass;
 use const JSON_PRETTY_PRINT;

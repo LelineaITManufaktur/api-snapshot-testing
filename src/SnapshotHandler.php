@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting;
+namespace Lelinea\SnapshotTesting;
 
 use function preg_replace;
 

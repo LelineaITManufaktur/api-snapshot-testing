@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting\Wildcard;
+namespace Lelinea\SnapshotTesting\Wildcard;
 
 use function is_int;
 

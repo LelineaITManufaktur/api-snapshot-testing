@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use KigaRoo\SnapshotTesting\Exception\InvalidMappingPath;
-use KigaRoo\SnapshotTesting\MatchesSnapshots;
-use KigaRoo\SnapshotTesting\Wildcard\BooleanWildcard;
-use KigaRoo\SnapshotTesting\Wildcard\DateTimeOrNullWildcard;
-use KigaRoo\SnapshotTesting\Wildcard\DateTimeWildcard;
-use KigaRoo\SnapshotTesting\Wildcard\IntegerWildcard;
-use KigaRoo\SnapshotTesting\Wildcard\UuidWildcard;
-use KigaRoo\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\SnapshotTesting\Exception\InvalidMappingPath;
+use Lelinea\SnapshotTesting\MatchesSnapshots;
+use Lelinea\SnapshotTesting\Wildcard\BooleanWildcard;
+use Lelinea\SnapshotTesting\Wildcard\DateTimeOrNullWildcard;
+use Lelinea\SnapshotTesting\Wildcard\DateTimeWildcard;
+use Lelinea\SnapshotTesting\Wildcard\IntegerWildcard;
+use Lelinea\SnapshotTesting\Wildcard\UuidWildcard;
+use Lelinea\SnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\TestCase;
 use function json_encode;
 

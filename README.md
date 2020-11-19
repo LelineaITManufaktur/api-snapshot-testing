@@ -1,16 +1,16 @@
 # Snapshot Testing
-[![Build Status](https://travis-ci.org/KigaRoo/snapshot-testing.svg?branch=master)](https://travis-ci.org/KigaRoo/snapshot-testing)
+[![Build Status](https://travis-ci.org/LelineaITManufaktur/snapshot-testing.svg?branch=master)](https://travis-ci.org/Lelinea/snapshot-testing)
 
 Provides PHPUnit assertions for snapshot testing
 
 ### Installation
 ```
-composer require --dev kigaroo/snapshot-testing
+composer require --dev lelinea/snapshot-testing
 ```
 
 ### Basic Usage
 ```php
-use KigaRoo\SnapshotTesting\MatchesSnapshots;
+use Lelinea\SnapshotTesting\MatchesSnapshots;
 
 final class MyUnitTest extends TestCase
 {
@@ -37,8 +37,8 @@ final class MyUnitTest extends TestCase
 ### Using Wildcards
 If you have content in your data which changes intentionally you can use wildcards:
 ```php
-use KigaRoo\SnapshotTesting\MatchesSnapshots;
-use KigaRoo\SnapshotTesting\Wildcard\UuidWildcard;
+use Lelinea\SnapshotTesting\MatchesSnapshots;
+use Lelinea\SnapshotTesting\Wildcard\UuidWildcard;
 
 final class MyUnitTest extends TestCase
 {

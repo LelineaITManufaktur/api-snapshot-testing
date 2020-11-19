@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting;
+namespace Lelinea\SnapshotTesting;
 
-use KigaRoo\SnapshotTesting\Exception\InvalidMappingPath;
-use KigaRoo\SnapshotTesting\Exception\WildcardMismatch;
-use KigaRoo\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\SnapshotTesting\Exception\InvalidMappingPath;
+use Lelinea\SnapshotTesting\Exception\WildcardMismatch;
+use Lelinea\SnapshotTesting\Wildcard\Wildcard;
 use stdClass;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;

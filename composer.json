@@ -1,5 +1,5 @@
 {
-    "name": "kigaroo/snapshot-testing",
+    "name": "lelinea/snapshot-testing",
     "description": "Provides PHPUnit assertions for snapshot testing",
     "type": "library",
     "license": "MIT",
@@ -9,14 +9,14 @@
     },
     "autoload": {
         "psr-4": {
-            "KigaRoo\\SnapshotTesting\\": "src"
+            "Lelinea\\SnapshotTesting\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": { "Tests\\": ["tests/unit"] }
     },
     "require": {
-        "php": "^7.1",
+        "php": "^7.4",
         "ext-json": "*",
         "ext-dom": "*",
         "ext-simplexml": "*",

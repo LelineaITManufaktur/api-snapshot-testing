@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting;
+namespace Lelinea\SnapshotTesting;
 
 use const DIRECTORY_SEPARATOR;
 use function file_exists;

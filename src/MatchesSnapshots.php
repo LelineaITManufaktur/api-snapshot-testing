@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace KigaRoo\SnapshotTesting;
+namespace Lelinea\SnapshotTesting;
 
-use KigaRoo\SnapshotTesting\Driver\JsonDriver;
-use KigaRoo\SnapshotTesting\Driver\XmlDriver;
-use KigaRoo\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\SnapshotTesting\Driver\JsonDriver;
+use Lelinea\SnapshotTesting\Driver\XmlDriver;
+use Lelinea\SnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
