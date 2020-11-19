@@ -22,11 +22,10 @@ use function sprintf;
 
 trait MatchesSnapshots
 {
-    /** @var int */
-    private $snapshotIncrementer;
+    private int $snapshotIncrementer = 0;
 
     /** @var string[] */
-    private $snapshotChanges = [];
+    private iterable $snapshotChanges = [];
 
     /**
      * @before
@@ -89,16 +88,7 @@ trait MatchesSnapshots
         return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true);
     }
 
-    /**
-     * // phpcs:disable
-     * @param bool $withDataSet
-     *
-     * @return string
-     * // phpcs:disable
-     */
-    abstract public function getName($withDataSet = true);
-
-    private function getSnapshotId(): string
+    private function getSnapshotId() : string
     {
         return sprintf(
             '%s__%s__%s',
@@ -108,7 +98,7 @@ trait MatchesSnapshots
         );
     }
 
-    private function getSnapshotDirectory(): string
+    private function getSnapshotDirectory() : string
     {
         $directoryName = dirname((new ReflectionClass($this))->getFileName());
 
@@ -122,7 +112,7 @@ trait MatchesSnapshots
      * Override this method it you want to use a different flag or mechanism
      * than `-d --update-snapshots`.
      */
-    private function shouldUpdateSnapshots(): bool
+    private function shouldUpdateSnapshots() : bool
     {
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
@@ -130,15 +120,19 @@ trait MatchesSnapshots
     /**
      * @param Wildcard[] $wildcards
      */
-    private function doSnapshotAssertion(string $actual, Driver $driver, string $requestUrl, array $wildcards = []): void
-    {
+    private function doSnapshotAssertion(
+        string $actual,
+        Driver $driver,
+        string $requestUrl,
+        array $wildcards = []
+    ) : void {
         $this->snapshotIncrementer++;
 
-        $filesystem = new Filesystem($this->getSnapshotDirectory());
+        $filesystem      = new Filesystem($this->getSnapshotDirectory());
         $snapshotHandler = new SnapshotHandler($filesystem);
 
         $filename = $snapshotHandler->getFilename($this->getSnapshotId(), $driver);
-        $content = '';
+        $content  = '';
         if ($filesystem->has($filename)) {
             $content = $filesystem->read($filename);
         }
@@ -149,7 +143,7 @@ trait MatchesSnapshots
             $driver
         );
 
-        if (!$snapshotHandler->snapshotExists($snapshot)) {
+        if (! $snapshotHandler->snapshotExists($snapshot)) {
             $this->assertSnapshotShouldBeCreated($filename);
 
             $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual, $requestUrl);
@@ -173,7 +167,7 @@ trait MatchesSnapshots
         }
     }
 
-    private function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
+    private function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl) : void
     {
         $snapshot->update($actual, $requestUrl);
 
@@ -183,9 +177,9 @@ trait MatchesSnapshots
         $this->registerSnapshotChange(sprintf('Snapshot created for %s', $snapshot->getId()));
     }
 
-    private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
+    private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl) : void
     {
-        $snapshot->update($actual,  $requestUrl);
+        $snapshot->update($actual, $requestUrl);
 
         $snapshotFactory = new SnapshotHandler(new Filesystem($this->getSnapshotDirectory()));
         $snapshotFactory->writeToFilesystem($snapshot);
@@ -195,7 +189,7 @@ trait MatchesSnapshots
 
     private function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt(
         ExpectationFailedException $exception
-    ): void {
+    ) : void {
         $newMessage = sprintf(
             '%s%s%s',
             $exception->getMessage(),
@@ -212,20 +206,20 @@ trait MatchesSnapshots
         throw $exception;
     }
 
-    private function registerSnapshotChange(string $message): void
+    private function registerSnapshotChange(string $message) : void
     {
         $this->snapshotChanges[] = $message;
     }
 
-    protected function assertSnapshotShouldBeCreated(string $snapshotFileName): void
+    protected function assertSnapshotShouldBeCreated(string $snapshotFileName) : void
     {
         if ($this->shouldCreateSnapshots()) {
             return;
         }
 
         $this->fail(
-            "Snapshot \"$snapshotFileName\" does not exist.\n".
-            'You can automatically create it by removing '.
+            sprintf("Snapshot \"%s\" does not exist.\n", $snapshotFileName) .
+            'You can automatically create it by removing ' .
             '`-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );
     }
