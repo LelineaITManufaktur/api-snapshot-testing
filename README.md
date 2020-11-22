@@ -1,5 +1,5 @@
 # Snapshot Testing
-[![Build Status](https://travis-ci.org/LelineaITManufaktur/api-snapshot-testing.svg?branch=master)](https://travis-ci.org/Lelinea/api-snapshot-testing)
+[![Build Status](https://travis-ci.org/LelineaITManufaktur/api-snapshot-testing.svg?branch=master)](https://travis-ci.org/LelineaITManufaktur/api-snapshot-testing)
 
 Provides PHPUnit assertions for snapshot testing
 
