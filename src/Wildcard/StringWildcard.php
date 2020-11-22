@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting\Wildcard;
+namespace Lelinea\ApiSnapshotTesting\Wildcard;
 
 use InvalidArgumentException;
 use Webmozart\Assert\Assert;

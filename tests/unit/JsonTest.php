@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Lelinea\SnapshotTesting\Exception\InvalidMappingPath;
-use Lelinea\SnapshotTesting\MatchesSnapshots;
-use Lelinea\SnapshotTesting\Wildcard\BooleanWildcard;
-use Lelinea\SnapshotTesting\Wildcard\DateTimeOrNullWildcard;
-use Lelinea\SnapshotTesting\Wildcard\DateTimeWildcard;
-use Lelinea\SnapshotTesting\Wildcard\IntegerWildcard;
-use Lelinea\SnapshotTesting\Wildcard\UuidWildcard;
-use Lelinea\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\ApiSnapshotTesting\Exception\InvalidMappingPath;
+use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
+use Lelinea\ApiSnapshotTesting\Wildcard\BooleanWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\DateTimeOrNullWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\DateTimeWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\IntegerWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\UuidWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\TestCase;
 use function json_encode;
 

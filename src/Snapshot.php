@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting;
+namespace Lelinea\ApiSnapshotTesting;
 
-use Lelinea\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 
 final class Snapshot
 {

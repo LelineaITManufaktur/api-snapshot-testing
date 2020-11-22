@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting;
+namespace Lelinea\ApiSnapshotTesting;
 
 use const DIRECTORY_SEPARATOR;
 use function file_exists;

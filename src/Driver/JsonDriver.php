@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting\Driver;
+namespace Lelinea\ApiSnapshotTesting\Driver;
 
-use Lelinea\SnapshotTesting\Accessor;
-use Lelinea\SnapshotTesting\Driver;
-use Lelinea\SnapshotTesting\Exception\CantBeSerialized;
-use Lelinea\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\ApiSnapshotTesting\Accessor;
+use Lelinea\ApiSnapshotTesting\Driver;
+use Lelinea\ApiSnapshotTesting\Exception\CantBeSerialized;
+use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\Assert;
 use stdClass;
 use const JSON_PRETTY_PRINT;

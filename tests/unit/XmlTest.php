@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Lelinea\SnapshotTesting\MatchesSnapshots;
-use Lelinea\SnapshotTesting\Wildcard\DateTimeWildcard;
-use Lelinea\SnapshotTesting\Wildcard\StringWildcard;
+use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
+use Lelinea\ApiSnapshotTesting\Wildcard\DateTimeWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\StringWildcard;
 use PHPUnit\Framework\TestCase;
 
 class XmlTest extends TestCase

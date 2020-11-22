@@ -1,5 +1,5 @@
 # Snapshot Testing
-[![Build Status](https://travis-ci.org/LelineaITManufaktur/snapshot-testing.svg?branch=master)](https://travis-ci.org/Lelinea/snapshot-testing)
+[![Build Status](https://travis-ci.org/LelineaITManufaktur/api-snapshot-testing.svg?branch=master)](https://travis-ci.org/Lelinea/api-snapshot-testing)
 
 Provides PHPUnit assertions for snapshot testing
 
@@ -10,7 +10,7 @@ composer require --dev lelinea/snapshot-testing
 
 ### Basic Usage
 ```php
-use Lelinea\SnapshotTesting\MatchesSnapshots;
+use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
 
 final class MyUnitTest extends TestCase
 {
@@ -37,8 +37,8 @@ final class MyUnitTest extends TestCase
 ### Using Wildcards
 If you have content in your data which changes intentionally you can use wildcards:
 ```php
-use Lelinea\SnapshotTesting\MatchesSnapshots;
-use Lelinea\SnapshotTesting\Wildcard\UuidWildcard;
+use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
+use Lelinea\ApiSnapshotTesting\Wildcard\UuidWildcard;
 
 final class MyUnitTest extends TestCase
 {

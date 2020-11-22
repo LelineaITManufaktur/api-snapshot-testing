@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting;
+namespace Lelinea\ApiSnapshotTesting;
 
 use function preg_replace;
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting;
+namespace Lelinea\ApiSnapshotTesting;
 
-use Lelinea\SnapshotTesting\Driver\JsonDriver;
-use Lelinea\SnapshotTesting\Driver\XmlDriver;
-use Lelinea\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\ApiSnapshotTesting\Driver\JsonDriver;
+use Lelinea\ApiSnapshotTesting\Driver\XmlDriver;
+use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;

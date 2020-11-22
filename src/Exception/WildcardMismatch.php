@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting\Exception;
+namespace Lelinea\ApiSnapshotTesting\Exception;
 
 use Exception;
 use function sprintf;

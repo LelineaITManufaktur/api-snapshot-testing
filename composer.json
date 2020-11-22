@@ -1,6 +1,6 @@
 {
-    "name": "lelinea/snapshot-testing",
-    "description": "Provides PHPUnit assertions for snapshot testing",
+    "name": "lelinea/api-snapshot-testing",
+    "description": "Provides PHPUnit assertions for api snapshot testing",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "stable",
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Lelinea\\SnapshotTesting\\": "src"
+            "Lelinea\\ApiSnapshotTesting\\": "src"
         }
     },
     "autoload-dev": {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Lelinea\SnapshotTesting;
+namespace Lelinea\ApiSnapshotTesting;
 
-use Lelinea\SnapshotTesting\Exception\InvalidMappingPath;
-use Lelinea\SnapshotTesting\Exception\WildcardMismatch;
-use Lelinea\SnapshotTesting\Wildcard\Wildcard;
+use Lelinea\ApiSnapshotTesting\Exception\InvalidMappingPath;
+use Lelinea\ApiSnapshotTesting\Exception\WildcardMismatch;
+use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use stdClass;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
