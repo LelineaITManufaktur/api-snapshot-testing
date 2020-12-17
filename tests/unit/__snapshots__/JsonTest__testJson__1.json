@@ -2,7 +2,9 @@
     "requestUrl": "localhost\/json-test-route-a",
     "responseData": {
         "tests": {
-            "id": "b84c9b7f-1ebb-49b6-9d18-4305932b2dd1",
+            "id1": "b84c9b7f-1ebb-49b6-9d18-4305932b2dd1",
+            "id2": null,
+            "id3": "b84c9b7f-1ebb-49b6-9d18-4305932b2dd1",
             "nested1": [
                 {
                     "nested2": [

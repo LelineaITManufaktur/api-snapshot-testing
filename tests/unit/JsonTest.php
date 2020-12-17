@@ -10,6 +10,7 @@ use Lelinea\ApiSnapshotTesting\Wildcard\BooleanWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\DateTimeOrNullWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\DateTimeWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\IntegerWildcard;
+use Lelinea\ApiSnapshotTesting\Wildcard\UuidOrNullWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\UuidWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +26,9 @@ class JsonTest extends TestCase
             [
                 'tests' =>
              [
-                 'id' => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
+                 'id1' => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
+                 'id2' => null,
+                 'id3' => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
                  'nested1' => [
                      0 => [
                          'nested2' => [
@@ -85,7 +88,9 @@ class JsonTest extends TestCase
 
         $wildcards = [
             new IntegerWildcard('tests.nested1[*].nested2[*].int'),
-            new UuidWildcard('tests.id'),
+            new UuidWildcard('tests.id1'),
+            new UuidOrNullWildcard('tests.id2'),
+            new UuidOrNullWildcard('tests.id3'),
             new IntegerWildcard('tests.multiple[1]'),
             new IntegerWildcard('tests.integers[*]'),
             new BooleanWildcard('tests.booleans[*]'),
