@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting;
 
+use Lelinea\ApiSnapshotTesting\Driver\CsvDriver;
 use Lelinea\ApiSnapshotTesting\Driver\JsonDriver;
 use Lelinea\ApiSnapshotTesting\Driver\XmlDriver;
 use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
@@ -74,6 +75,19 @@ trait MatchesSnapshots
     public function assertMatchesXmlSnapshot(string $actual, string $requestUrl, array $wildcards = []) : void
     {
         $this->doSnapshotAssertion($actual, new XmlDriver(), $requestUrl, $wildcards);
+    }
+
+    /**
+     * @param Wildcard[] $wildcards
+     */
+    public function assertMatchesCsvSnapshot(
+        string $actual,
+        string $requestUrl,
+        array $wildcards = [],
+        string $fieldSeparator = ';',
+        string $fieldEnclosure = '"'
+    ) : void {
+        $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure), $requestUrl, $wildcards);
     }
 
     /**
