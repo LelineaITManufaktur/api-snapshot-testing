@@ -13,6 +13,7 @@ use stdClass;
 use const PHP_EOL;
 use function array_filter;
 use function array_map;
+use function array_values;
 use function assert;
 use function fopen;
 use function fputcsv;
@@ -68,10 +69,12 @@ final class CsvDriver implements Driver
         $this->assertFields($actualArray, $wildcards);
 
         $actualArray = $this->replaceFields($actualArray, $wildcards);
+        $actualArray = array_values($actualArray);
         $actual      = json_encode($actualArray);
 
         $expectedArray = $this->decode($expected);
         $expectedArray = $this->replaceFields($expectedArray, $wildcards);
+        $expectedArray = array_values($expectedArray);
         $expected      = json_encode($expectedArray);
 
         Assert::assertJsonStringEqualsJsonString($expected, $actual);
