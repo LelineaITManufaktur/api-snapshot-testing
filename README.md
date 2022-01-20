@@ -96,6 +96,7 @@ The library currently supports the following wildcards:
 - DateTimeWildcard
 - DateTimeOrNullWildcard
 - StringWildcard
+- StringOrNullWildcard
 
 ### Usage in CI
 When running your tests in Continuous Integration you would possibly want to disable the creation of snapshots.
