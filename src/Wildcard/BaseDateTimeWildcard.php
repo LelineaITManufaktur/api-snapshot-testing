@@ -9,11 +9,9 @@ use Throwable;
 
 abstract class BaseDateTimeWildcard implements Wildcard
 {
-    /** @var string */
-    private $path;
+    private string $path;
 
-    /** @var string */
-    private $format;
+    private string $format;
 
     public function __construct(string $path, string $format = DateTime::ATOM)
     {
@@ -21,7 +19,7 @@ abstract class BaseDateTimeWildcard implements Wildcard
         $this->format = $format;
     }
 
-    public function atPath() : string
+    public function atPath(): string
     {
         return $this->path;
     }
@@ -29,12 +27,12 @@ abstract class BaseDateTimeWildcard implements Wildcard
     /**
      * @param mixed $mixed
      */
-    public function match($mixed) : bool
+    public function match($mixed): bool
     {
         try {
             $dateTime = DateTime::createFromFormat($this->format, $mixed);
 
-            return $dateTime !== false;
+            return false !== $dateTime;
         } catch (Throwable $exception) {
             return false;
         }

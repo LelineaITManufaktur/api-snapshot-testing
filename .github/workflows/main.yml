@@ -1,0 +1,23 @@
+name: CI + Deploy
+on:
+  workflow_dispatch:
+  push:
+  release:
+    types: [published]
+
+env:
+  PHP: '/usr/bin/php7.4'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/snapshot-caches/
+          key: "cachekey-${{ runner.os }}-${{ hashFiles('composer.lock') }}-qa-key"
+          restore-keys: cachekey-${{ runner.os }}-
+
+      - run: make install-ci
+      - run: make test

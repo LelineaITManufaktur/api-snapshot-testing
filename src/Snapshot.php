@@ -8,14 +8,11 @@ use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 
 final class Snapshot
 {
-    /** @var string */
-    private $id;
+    private string $id;
 
-    /** @var string */
-    private $content;
+    private string $content;
 
-    /** @var Driver */
-    private $driver;
+    private Driver $driver;
 
     private function __construct(
         string $id,
@@ -31,11 +28,11 @@ final class Snapshot
         string $id,
         string $content,
         Driver $driver
-    ) : self {
+    ): self {
         return new self($id, $content, $driver);
     }
 
-    public function getId() : string
+    public function getId(): string
     {
         return $this->id;
     }
@@ -43,22 +40,22 @@ final class Snapshot
     /**
      * @param Wildcard[] $wildcards
      */
-    public function assertMatches(string $actual, array $wildcards = []) : void
+    public function assertMatches(string $actual, array $wildcards = []): void
     {
         $this->driver->match($this->content, $actual, $wildcards);
     }
 
-    public function getDriver() : Driver
+    public function getDriver(): Driver
     {
         return $this->driver;
     }
 
-    public function getContent() : string
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    public function update(string $actual, string $requestUrl) : void
+    public function update(string $actual, string $requestUrl): void
     {
         $this->content = $this->driver->serialize($actual, $requestUrl);
     }

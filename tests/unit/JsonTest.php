@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use function json_encode;
 use Lelinea\ApiSnapshotTesting\Exception\InvalidMappingPath;
 use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
 use Lelinea\ApiSnapshotTesting\Wildcard\BooleanWildcard;
@@ -14,21 +15,19 @@ use Lelinea\ApiSnapshotTesting\Wildcard\UuidOrNullWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\UuidWildcard;
 use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use PHPUnit\Framework\TestCase;
-use function json_encode;
 
 class JsonTest extends TestCase
 {
     use MatchesSnapshots;
 
-    public function testJson() : void
+    public function testJson(): void
     {
         $data = json_encode(
             [
-                'tests' =>
-             [
-                 'id1' => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
-                 'id2' => null,
-                 'id3' => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
+                'tests' => [
+                 'id1'     => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
+                 'id2'     => null,
+                 'id3'     => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
                  'nested1' => [
                      0 => [
                          'nested2' => [
@@ -65,8 +64,8 @@ class JsonTest extends TestCase
                      ['id' => 345],
                  ],
                  'arrays' => [
-                     [1,2,3],
-                     [3,4,5],
+                     [1, 2, 3],
+                     [3, 4, 5],
                  ],
                  'dateTimes' => [
                      [
@@ -107,13 +106,12 @@ class JsonTest extends TestCase
     /**
      * @dataProvider provideFail
      */
-    public function testFailOnInvalidMapping(Wildcard $wildcard) : void
+    public function testFailOnInvalidMapping(Wildcard $wildcard): void
     {
         $data = json_encode(
             [
-                'tests' =>
-             [
-                 'id' => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
+                'tests' => [
+                 'id'      => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
                  'nested1' => [
                      0 => [
                          'nested2' => [
@@ -145,8 +143,8 @@ class JsonTest extends TestCase
                      ['id' => 345],
                  ],
                  'arrays' => [
-                     [1,2,3],
-                     [3,4,5],
+                     [1, 2, 3],
+                     [3, 4, 5],
                  ],
                  'dateTimes' => [
                      [
@@ -165,7 +163,10 @@ class JsonTest extends TestCase
         $this->assertMatchesJsonSnapshot($data, 'localhost/json-test-route-b', [$wildcard]);
     }
 
-    public function provideFail() : array
+    /**
+     * @return Wildcard[][]
+     */
+    public function provideFail(): array
     {
         return [
             [new IntegerWildcard('tests.nested0[*].nested2[*].int')],

@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting;
 
+use function array_map;
+use function count;
+use const DIRECTORY_SEPARATOR;
+use function dirname;
+use function implode;
+use function in_array;
 use Lelinea\ApiSnapshotTesting\Driver\CsvDriver;
 use Lelinea\ApiSnapshotTesting\Driver\JsonDriver;
 use Lelinea\ApiSnapshotTesting\Driver\XmlDriver;
 use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
+use const PHP_EOL;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\ExpectationFailedException;
 use ReflectionClass;
 use ReflectionObject;
-use const DIRECTORY_SEPARATOR;
-use const PHP_EOL;
-use function array_map;
-use function count;
-use function dirname;
-use function implode;
-use function in_array;
 use function sprintf;
 
 trait MatchesSnapshots
@@ -31,7 +31,7 @@ trait MatchesSnapshots
     /**
      * @before
      */
-    public function setUpSnapshotIncrementer() : void
+    public function setUpSnapshotIncrementer(): void
     {
         $this->snapshotIncrementer = 0;
     }
@@ -39,13 +39,13 @@ trait MatchesSnapshots
     /**
      * @after
      */
-    public function markTestIncompleteIfSnapshotsHaveChanged() : void
+    public function markTestIncompleteIfSnapshotsHaveChanged(): void
     {
-        if (count($this->snapshotChanges) === 0) {
+        if (0 === count($this->snapshotChanges)) {
             return;
         }
 
-        if (count($this->snapshotChanges) === 1) {
+        if (1 === count($this->snapshotChanges)) {
             Assert::markTestIncomplete($this->snapshotChanges[0]);
 
             return;
@@ -64,7 +64,7 @@ trait MatchesSnapshots
     /**
      * @param Wildcard[] $wildcards
      */
-    public function assertMatchesJsonSnapshot(string $actual, string $requestUrl, array $wildcards = []) : void
+    public function assertMatchesJsonSnapshot(string $actual, string $requestUrl, array $wildcards = []): void
     {
         $this->doSnapshotAssertion($actual, new JsonDriver(), $requestUrl, $wildcards);
     }
@@ -72,7 +72,7 @@ trait MatchesSnapshots
     /**
      * @param Wildcard[] $wildcards
      */
-    public function assertMatchesXmlSnapshot(string $actual, string $requestUrl, array $wildcards = []) : void
+    public function assertMatchesXmlSnapshot(string $actual, string $requestUrl, array $wildcards = []): void
     {
         $this->doSnapshotAssertion($actual, new XmlDriver(), $requestUrl, $wildcards);
     }
@@ -86,7 +86,7 @@ trait MatchesSnapshots
         array $wildcards = [],
         string $fieldSeparator = ';',
         string $fieldEnclosure = '"'
-    ) : void {
+    ): void {
         $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure), $requestUrl, $wildcards);
     }
 
@@ -97,12 +97,12 @@ trait MatchesSnapshots
      * Override this method if you want to use a different flag or mechanism
      * than `-d --without-creating-snapshots`.
      */
-    protected function shouldCreateSnapshots() : bool
+    protected function shouldCreateSnapshots(): bool
     {
-        return ! in_array('--without-creating-snapshots', $_SERVER['argv'], true);
+        return !in_array('--without-creating-snapshots', $_SERVER['argv'], true);
     }
 
-    private function getSnapshotId() : string
+    private function getSnapshotId(): string
     {
         return sprintf(
             '%s__%s__%s',
@@ -112,7 +112,7 @@ trait MatchesSnapshots
         );
     }
 
-    private function getSnapshotDirectory() : string
+    private function getSnapshotDirectory(): string
     {
         $directoryName = dirname((new ReflectionClass($this))->getFileName());
 
@@ -126,7 +126,7 @@ trait MatchesSnapshots
      * Override this method it you want to use a different flag or mechanism
      * than `-d --update-snapshots`.
      */
-    private function shouldUpdateSnapshots() : bool
+    private function shouldUpdateSnapshots(): bool
     {
         return in_array('--update-snapshots', $_SERVER['argv'], true);
     }
@@ -139,8 +139,8 @@ trait MatchesSnapshots
         Driver $driver,
         string $requestUrl,
         array $wildcards = []
-    ) : void {
-        $this->snapshotIncrementer++;
+    ): void {
+        ++$this->snapshotIncrementer;
 
         $filesystem      = new Filesystem($this->getSnapshotDirectory());
         $snapshotHandler = new SnapshotHandler($filesystem);
@@ -157,7 +157,7 @@ trait MatchesSnapshots
             $driver
         );
 
-        if (! $snapshotHandler->snapshotExists($snapshot)) {
+        if (!$snapshotHandler->snapshotExists($snapshot)) {
             $this->assertSnapshotShouldBeCreated($filename);
 
             $this->createSnapshotAndMarkTestIncomplete($snapshot, $actual, $requestUrl);
@@ -181,7 +181,7 @@ trait MatchesSnapshots
         }
     }
 
-    private function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl) : void
+    private function createSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
     {
         $snapshot->update($actual, $requestUrl);
 
@@ -191,7 +191,7 @@ trait MatchesSnapshots
         $this->registerSnapshotChange(sprintf('Snapshot created for %s', $snapshot->getId()));
     }
 
-    private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl) : void
+    private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
     {
         $snapshot->update($actual, $requestUrl);
 
@@ -203,7 +203,7 @@ trait MatchesSnapshots
 
     private function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt(
         ExpectationFailedException $exception
-    ) : void {
+    ): void {
         $newMessage = sprintf(
             '%s%s%s',
             $exception->getMessage(),
@@ -220,12 +220,12 @@ trait MatchesSnapshots
         throw $exception;
     }
 
-    private function registerSnapshotChange(string $message) : void
+    private function registerSnapshotChange(string $message): void
     {
         $this->snapshotChanges[] = $message;
     }
 
-    protected function assertSnapshotShouldBeCreated(string $snapshotFileName) : void
+    protected function assertSnapshotShouldBeCreated(string $snapshotFileName): void
     {
         if ($this->shouldCreateSnapshots()) {
             return;

@@ -13,7 +13,7 @@ class XmlTest extends TestCase
 {
     use MatchesSnapshots;
 
-    public function testXml() : void
+    public function testXml(): void
     {
         $data = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>

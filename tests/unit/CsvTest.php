@@ -14,10 +14,10 @@ final class CsvTest extends TestCase
 {
     use MatchesSnapshots;
 
-    public function testCsv() : void
+    public function testCsv(): void
     {
         $data = <<<CSV
-"b84c9b7f-1ebb-49b6-9d18-4305932b2dd1";D;Wahr;50;"Homer, Simpson";"id card 123";20991231;General
+"b84c9b7f-1ebb-49b6-9d18-4305932b2dd1";D;Wahr;50;"Homer,\n Simpson";"id card 123";20991231;General
 "b84c9b7f-1ebb-49b6-9d18-4305932b2dd1";M;Wahr;50;"Homer, Simpson";"id card 123";20991231;General
 "b84c9b7f-1ebb-49b6-9d18-4305932b2dd1";A;Wahr;50;"Vorname, Nachname";"id card 123";20991231;General
 CSV;
@@ -31,7 +31,7 @@ CSV;
         $this->assertMatchesCsvSnapshot($data, 'localhost/csv-test-route-a', $wildcards);
     }
 
-    public function testCsvWithNonDefaultConfig() : void
+    public function testCsvWithNonDefaultConfig(): void
     {
         $data = <<<CSV
 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',D,Wahr,50,'Homer, Simpson','id card 123',20991231,General

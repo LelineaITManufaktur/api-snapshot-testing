@@ -8,15 +8,14 @@ use function is_int;
 
 final class IntegerWildcard implements Wildcard
 {
-    /** @var string */
-    private $path;
+    private string $path;
 
     public function __construct(string $path)
     {
         $this->path = $path;
     }
 
-    public function atPath() : string
+    public function atPath(): string
     {
         return $this->path;
     }
@@ -24,7 +23,7 @@ final class IntegerWildcard implements Wildcard
     /**
      * @param mixed $mixed
      */
-    public function match($mixed) : bool
+    public function match($mixed): bool
     {
         return is_int($mixed);
     }

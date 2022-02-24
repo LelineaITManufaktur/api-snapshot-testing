@@ -4,35 +4,35 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting;
 
-use Lelinea\ApiSnapshotTesting\Exception\InvalidMappingPath;
-use Lelinea\ApiSnapshotTesting\Exception\WildcardMismatch;
-use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
-use stdClass;
-use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use function explode;
 use function get_class;
 use function is_array;
 use function is_string;
+use Lelinea\ApiSnapshotTesting\Exception\InvalidMappingPath;
+use Lelinea\ApiSnapshotTesting\Exception\WildcardMismatch;
+use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
 use function sprintf;
+use stdClass;
+use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class Accessor
 {
     /**
-     * @param string|stdClass|mixed[] $data
+     * @param string|stdClass|object|mixed[] $data
      *
      * @throws InvalidMappingPath
      */
-    public function assertFields($data, Wildcard $wildcard) : void
+    public function assertFields($data, Wildcard $wildcard, string $pathPrefix = ''): void
     {
         if (is_string($data)) {
             return;
         }
 
-        $dataPaths = $this->buildDataPaths($wildcard, $data);
+        $dataPaths = $this->buildDataPaths($wildcard, $data, $pathPrefix);
 
-        foreach ($dataPaths as $path => $data) {
-            $this->assert($wildcard, $data);
+        foreach ($dataPaths as $pathData) {
+            $this->assert($wildcard, $pathData, $pathPrefix);
         }
     }
 
@@ -41,20 +41,20 @@ final class Accessor
      *
      * @return mixed[]
      */
-    private function buildDataPaths(Wildcard $wildcard, $data) : array
+    private function buildDataPaths(Wildcard $wildcard, $data, string $pathPrefix): array
     {
-        $paths     = explode('[*]', $wildcard->atPath());
+        $paths = explode('[*]', $pathPrefix . $wildcard->atPath());
         $dataPaths = ['' => $data];
-        foreach ($paths as $k => $path) {
+        foreach ($paths as $path) {
             foreach ($dataPaths as $checkPath => $pathData) {
-                $elements = $checkPath . $path === '' ? $pathData : $this->getValue($data, $checkPath . $path);
+                $elements = '' === $checkPath . $path ? $pathData : $this->getValue($data, $checkPath . $path);
                 unset($dataPaths[$checkPath]);
                 if (is_array($elements)) {
                     foreach ($elements as $n => $element) {
                         $dataPaths[sprintf('%s%s[%s]', $checkPath, $path, $n)] = $element;
                     }
                 } else {
-                    $finalPath             = sprintf('%s%s', $checkPath, $path);
+                    $finalPath = sprintf('%s%s', $checkPath, $path);
                     $dataPaths[$finalPath] = $this->getValue($data, $finalPath);
                 }
             }
@@ -64,17 +64,17 @@ final class Accessor
     }
 
     /**
-     * @param string|stdClass|mixed[] $data
+     * @param string|stdClass|object|mixed[] $data
      *
      * @throws InvalidMappingPath
      */
-    public function replaceFields($data, Wildcard $wildcard) : void
+    public function replaceFields($data, Wildcard $wildcard, string $pathPrefix = ''): void
     {
         if (is_string($data)) {
             return;
         }
 
-        $dataPaths        = $this->buildDataPaths($wildcard, $data);
+        $dataPaths = $this->buildDataPaths($wildcard, $data, $pathPrefix);
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($dataPaths as $path => $pathData) {
@@ -83,11 +83,9 @@ final class Accessor
     }
 
     /**
-     * @param string|stdClass|mixed[] $data
+     * @param object|mixed[] $data
      *
-     * @return string|stdClass|mixed[]
-     *
-     * @throws InvalidMappingPath
+     * @return mixed
      */
     private function getValue($data, string $path)
     {
@@ -101,14 +99,12 @@ final class Accessor
     }
 
     /**
-     * @param stdClass|mixed[] $value
-     *
-     * @throws WildcardMismatch
+     * @param mixed $value
      */
-    private function assert(Wildcard $wildcard, $value) : void
+    private function assert(Wildcard $wildcard, $value, string $pathPrefix): void
     {
-        if (! $wildcard->match($value)) {
-            throw new WildcardMismatch(get_class($wildcard), $wildcard->atPath(), $value);
+        if (!$wildcard->match($value)) {
+            throw new WildcardMismatch(get_class($wildcard), $pathPrefix . $wildcard->atPath(), $value);
         }
     }
 }

@@ -4,31 +4,31 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting\Driver;
 
+use function is_string;
+use function json_decode;
+use function json_encode;
+use const JSON_PRETTY_PRINT;
 use Lelinea\ApiSnapshotTesting\Accessor;
 use Lelinea\ApiSnapshotTesting\Driver;
 use Lelinea\ApiSnapshotTesting\Exception\CantBeSerialized;
 use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
+use const PHP_EOL;
 use PHPUnit\Framework\Assert;
 use stdClass;
-use const JSON_PRETTY_PRINT;
-use const PHP_EOL;
-use function is_string;
-use function json_decode;
-use function json_encode;
 
 final class JsonDriver implements Driver
 {
-    public function serialize(string $json, string $requestUrl) : string
+    public function serialize(string $json, string $requestUrl): string
     {
         $data = [
-            'requestUrl' => $requestUrl,
+            'requestUrl'   => $requestUrl,
             'responseData' => $this->decode($json),
         ];
 
         return json_encode($data, JSON_PRETTY_PRINT) . PHP_EOL;
     }
 
-    public function extension() : string
+    public function extension(): string
     {
         return 'json';
     }
@@ -36,17 +36,18 @@ final class JsonDriver implements Driver
     /**
      * @param Wildcard[] $wildcards
      */
-    public function match(string $expected, string $actual, array $wildcards = []) : void
+    public function match(string $expected, string $actual, array $wildcards = []): void
     {
         $actualArray = $this->decode($actual);
         $this->assertFields($actualArray, $wildcards);
 
         $actualArray = $this->replaceFields($actualArray, $wildcards);
-        $actual      = json_encode($actualArray);
+        $actual = (string) json_encode($actualArray);
 
-        $expectedArray = $this->decode($expected)->responseData;
+        $decodedExpected = $this->decode($expected);
+        $expectedArray = property_exists($decodedExpected, 'responseData') ? $decodedExpected->responseData : [];
         $expectedArray = $this->replaceFields($expectedArray, $wildcards);
-        $expected      = json_encode($expectedArray);
+        $expected = (string) json_encode($expectedArray);
 
         Assert::assertJsonStringEqualsJsonString($expected, $actual);
     }
@@ -55,7 +56,7 @@ final class JsonDriver implements Driver
      * @param string|stdClass|Wildcard[] $data
      * @param Wildcard[]                 $wildcards
      */
-    private function assertFields($data, array $wildcards) : void
+    private function assertFields($data, array $wildcards): void
     {
         if (is_string($data)) {
             return;
@@ -86,15 +87,15 @@ final class JsonDriver implements Driver
     }
 
     /**
-     * @return string|object|mixed[]
-     *
      * @throws CantBeSerialized
+     *
+     * @return mixed
      */
     private function decode(string $data)
     {
         $data = json_decode($data);
 
-        if ($data === false) {
+        if (false === $data) {
             throw new CantBeSerialized('Given string does not contain valid json.');
         }
 

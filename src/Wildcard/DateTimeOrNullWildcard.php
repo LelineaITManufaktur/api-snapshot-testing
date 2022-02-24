@@ -9,9 +9,9 @@ final class DateTimeOrNullWildcard extends BaseDateTimeWildcard
     /**
      * @param mixed $mixed
      */
-    public function match($mixed) : bool
+    public function match($mixed): bool
     {
-        if ($mixed === null) {
+        if (null === $mixed) {
             return true;
         }
 
