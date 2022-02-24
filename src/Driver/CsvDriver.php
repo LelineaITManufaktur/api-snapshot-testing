@@ -15,15 +15,18 @@ final class CsvDriver implements Driver
 
     private string $fieldEnclosure;
 
-    public function __construct(string $fieldSeparator, string $fieldEnclosure)
+    private bool $skipHeaders;
+
+    public function __construct(string $fieldSeparator, string $fieldEnclosure, bool $skipHeaders)
     {
         $this->fieldSeparator = $fieldSeparator;
         $this->fieldEnclosure = $fieldEnclosure;
+        $this->skipHeaders = $skipHeaders;
     }
 
     public function serialize(string $csv, string $requestUrl): string
     {
-        $decodedCsv = $this->decode($csv);
+        $decodedCsv = $this->decode($csv, false);
         $data = property_exists($decodedCsv, 'data') ? $decodedCsv->data : [];
         $handle = fopen('php://temp', 'r+');
         assert(is_resource($handle));
@@ -47,13 +50,13 @@ final class CsvDriver implements Driver
      */
     public function match(string $expected, string $actual, array $wildcards = []): void
     {
-        $actualArray = $this->decode($actual);
+        $actualArray = $this->decode($actual, $this->skipHeaders);
         $this->assertFields($actualArray, $wildcards);
 
         $actualArray = $this->replaceFields($actualArray, $wildcards);
         $actual = (string) json_encode($actualArray);
 
-        $expectedArray = $this->decode($expected);
+        $expectedArray = $this->decode($expected, $this->skipHeaders);
         $expectedArray = $this->replaceFields($expectedArray, $wildcards);
         $expected = (string) json_encode($expectedArray);
 
@@ -82,7 +85,7 @@ final class CsvDriver implements Driver
         return $data;
     }
 
-    private function decode(string $data): object
+    private function decode(string $data, bool $skipHeaders): object
     {
         $fp = tmpfile();
         assert(is_resource($fp));
@@ -95,6 +98,10 @@ final class CsvDriver implements Driver
             $rows[] = array_map(static function ($rowData) {
                 return '' === $rowData ? null : $rowData;
             }, $row ?? []);
+        }
+
+        if (count($rows) > 0 && $skipHeaders) {
+            array_shift($rows);
         }
 
         return (object) ['data' => $rows];

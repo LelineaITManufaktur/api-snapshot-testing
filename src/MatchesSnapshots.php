@@ -47,8 +47,6 @@ trait MatchesSnapshots
 
         if (1 === count($this->snapshotChanges)) {
             Assert::markTestIncomplete($this->snapshotChanges[0]);
-
-            return;
         }
 
         $formattedMessages = array_map(
@@ -85,9 +83,10 @@ trait MatchesSnapshots
         string $requestUrl,
         array $wildcards = [],
         string $fieldSeparator = ';',
-        string $fieldEnclosure = '"'
+        string $fieldEnclosure = '"',
+        bool $skipHeader = true
     ): void {
-        $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure), $requestUrl, $wildcards);
+        $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure, $skipHeader), $requestUrl, $wildcards);
     }
 
     /**

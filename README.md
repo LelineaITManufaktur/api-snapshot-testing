@@ -49,7 +49,7 @@ CSV;
 'foo bar',456
 'foo bar',789
 CSV;
-        $this->assertMatchesCsvSnapshot($myCsvData, [], ',', "'");
+        $this->assertMatchesCsvSnapshot($myCsvData, [], ',', "'", false);
 }
 ```
 
