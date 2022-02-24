@@ -92,7 +92,9 @@ final class CsvDriver implements Driver
 
         $rows = [];
         while (($row = fgetcsv($fp, 0, $this->fieldSeparator, $this->fieldEnclosure)) !== false) {
-            $rows[] = $row;
+            $rows[] = array_map(static function ($rowData) {
+                return '' === $rowData ? null : $rowData;
+            }, $row ?? []);
         }
 
         return (object) ['data' => $rows];
