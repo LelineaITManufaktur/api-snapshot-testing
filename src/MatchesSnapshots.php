@@ -82,9 +82,9 @@ trait MatchesSnapshots
         string $actual,
         string $requestUrl,
         array $wildcards = [],
+        bool $skipHeader = true,
         string $fieldSeparator = ';',
-        string $fieldEnclosure = '"',
-        bool $skipHeader = true
+        string $fieldEnclosure = '"'
     ): void {
         $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure, $skipHeader), $requestUrl, $wildcards);
     }

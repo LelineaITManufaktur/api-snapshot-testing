@@ -46,6 +46,6 @@ CSV;
             new UuidWildcard('[*][0]'),
         ];
 
-        $this->assertMatchesCsvSnapshot($data, 'localhost/csv-test-route-b', $wildcards, ',', "'", false);
+        $this->assertMatchesCsvSnapshot($data, 'localhost/csv-test-route-b', $wildcards, false, ',', "'");
     }
 }

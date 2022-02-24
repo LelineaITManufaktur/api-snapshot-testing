@@ -9,6 +9,7 @@ composer require --dev lelinea/snapshot-testing
 ```
 
 ### Basic Usage
+
 ```php
 use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
 
@@ -49,7 +50,7 @@ CSV;
 'foo bar',456
 'foo bar',789
 CSV;
-        $this->assertMatchesCsvSnapshot($myCsvData, [], ',', "'", false);
+        $this->assertMatchesCsvSnapshot($myCsvData, [], false, ',', "'");
 }
 ```
 
