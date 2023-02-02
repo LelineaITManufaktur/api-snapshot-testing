@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use function json_encode;
 use Lelinea\ApiSnapshotTesting\Exception\InvalidMappingPath;
 use Lelinea\ApiSnapshotTesting\MatchesSnapshots;
 use Lelinea\ApiSnapshotTesting\Wildcard\BooleanWildcard;
@@ -22,7 +21,7 @@ class JsonTest extends TestCase
 
     public function testJson(): void
     {
-        $data = json_encode(
+        $data = \json_encode(
             [
                 'tests' => [
                  'id1'     => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',
@@ -108,7 +107,7 @@ class JsonTest extends TestCase
      */
     public function testFailOnInvalidMapping(Wildcard $wildcard): void
     {
-        $data = json_encode(
+        $data = \json_encode(
             [
                 'tests' => [
                  'id'      => 'b84c9b7f-1ebb-49b6-9d18-4305932b2dd1',

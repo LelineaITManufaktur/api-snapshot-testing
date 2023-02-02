@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting\Wildcard;
 
-use function is_bool;
-
 final class BooleanWildcard implements Wildcard
 {
     private string $path;
@@ -25,6 +23,6 @@ final class BooleanWildcard implements Wildcard
      */
     public function match($mixed): bool
     {
-        return is_bool($mixed);
+        return \is_bool($mixed);
     }
 }

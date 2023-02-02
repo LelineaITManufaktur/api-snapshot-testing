@@ -6,7 +6,7 @@ on:
     types: [published]
 
 env:
-  PHP: '/usr/bin/php7.4'
+  PHP: '/usr/bin/php8.1'
 
 jobs:
   test:
@@ -19,5 +19,6 @@ jobs:
           key: "cachekey-${{ runner.os }}-${{ hashFiles('composer.lock') }}-qa-key"
           restore-keys: cachekey-${{ runner.os }}-
 
+      - run: ls -la /etc/
       - run: make install-ci
       - run: make test

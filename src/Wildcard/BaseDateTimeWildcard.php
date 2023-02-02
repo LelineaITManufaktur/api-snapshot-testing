@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting\Wildcard;
 
-use DateTime;
-use Throwable;
-
 abstract class BaseDateTimeWildcard implements Wildcard
 {
     private string $path;
 
     private string $format;
 
-    public function __construct(string $path, string $format = DateTime::ATOM)
+    public function __construct(string $path, string $format = \DateTime::ATOM)
     {
         $this->path   = $path;
         $this->format = $format;
@@ -30,10 +27,10 @@ abstract class BaseDateTimeWildcard implements Wildcard
     public function match($mixed): bool
     {
         try {
-            $dateTime = DateTime::createFromFormat($this->format, $mixed);
+            $dateTime = \DateTime::createFromFormat($this->format, $mixed);
 
             return false !== $dateTime;
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return false;
         }
     }
