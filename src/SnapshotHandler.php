@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting;
 
-use function preg_replace;
-
 final class SnapshotHandler
 {
     private Filesystem $filesystem;

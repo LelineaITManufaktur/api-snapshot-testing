@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting\Wildcard;
 
-use function is_int;
-
 final class IntegerWildcard implements Wildcard
 {
     private string $path;
@@ -25,6 +23,6 @@ final class IntegerWildcard implements Wildcard
      */
     public function match($mixed): bool
     {
-        return is_int($mixed);
+        return \is_int($mixed);
     }
 }

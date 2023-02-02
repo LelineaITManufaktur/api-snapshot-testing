@@ -4,22 +4,12 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting;
 
-use function array_map;
-use function count;
-use const DIRECTORY_SEPARATOR;
-use function dirname;
-use function implode;
-use function in_array;
 use Lelinea\ApiSnapshotTesting\Driver\CsvDriver;
 use Lelinea\ApiSnapshotTesting\Driver\JsonDriver;
 use Lelinea\ApiSnapshotTesting\Driver\XmlDriver;
 use Lelinea\ApiSnapshotTesting\Wildcard\Wildcard;
-use const PHP_EOL;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\ExpectationFailedException;
-use ReflectionClass;
-use ReflectionObject;
-use function sprintf;
 
 trait MatchesSnapshots
 {
@@ -41,22 +31,22 @@ trait MatchesSnapshots
      */
     public function markTestIncompleteIfSnapshotsHaveChanged(): void
     {
-        if (0 === count($this->snapshotChanges)) {
+        if (0 === \count($this->snapshotChanges)) {
             return;
         }
 
-        if (1 === count($this->snapshotChanges)) {
+        if (1 === \count($this->snapshotChanges)) {
             Assert::markTestIncomplete($this->snapshotChanges[0]);
         }
 
-        $formattedMessages = array_map(
+        $formattedMessages = \array_map(
             static function (string $message) {
                 return '- ' . $message;
             },
             $this->snapshotChanges
         );
 
-        Assert::markTestIncomplete(implode(PHP_EOL, $formattedMessages));
+        Assert::markTestIncomplete(\implode(\PHP_EOL, $formattedMessages));
     }
 
     /**
@@ -98,14 +88,14 @@ trait MatchesSnapshots
      */
     protected function shouldCreateSnapshots(): bool
     {
-        return !in_array('--without-creating-snapshots', $_SERVER['argv'], true);
+        return !\in_array('--without-creating-snapshots', $_SERVER['argv'], true);
     }
 
     private function getSnapshotId(): string
     {
-        return sprintf(
+        return \sprintf(
             '%s__%s__%s',
-            (new ReflectionClass($this))->getShortName(),
+            (new \ReflectionClass($this))->getShortName(),
             $this->getName(),
             $this->snapshotIncrementer
         );
@@ -113,9 +103,9 @@ trait MatchesSnapshots
 
     private function getSnapshotDirectory(): string
     {
-        $directoryName = dirname((new ReflectionClass($this))->getFileName());
+        $directoryName = \dirname((new \ReflectionClass($this))->getFileName());
 
-        return sprintf('%s%s__snapshots__', $directoryName, DIRECTORY_SEPARATOR);
+        return \sprintf('%s%s__snapshots__', $directoryName, \DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -127,7 +117,7 @@ trait MatchesSnapshots
      */
     private function shouldUpdateSnapshots(): bool
     {
-        return in_array('--update-snapshots', $_SERVER['argv'], true);
+        return \in_array('--update-snapshots', $_SERVER['argv'], true);
     }
 
     /**
@@ -187,7 +177,7 @@ trait MatchesSnapshots
         $snapshotFactory = new SnapshotHandler(new Filesystem($this->getSnapshotDirectory()));
         $snapshotFactory->writeToFilesystem($snapshot);
 
-        $this->registerSnapshotChange(sprintf('Snapshot created for %s', $snapshot->getId()));
+        $this->registerSnapshotChange(\sprintf('Snapshot created for %s', $snapshot->getId()));
     }
 
     private function updateSnapshotAndMarkTestIncomplete(Snapshot $snapshot, string $actual, string $requestUrl): void
@@ -197,20 +187,20 @@ trait MatchesSnapshots
         $snapshotFactory = new SnapshotHandler(new Filesystem($this->getSnapshotDirectory()));
         $snapshotFactory->writeToFilesystem($snapshot);
 
-        $this->registerSnapshotChange(sprintf('Snapshot updated for %s', $snapshot->getId()));
+        $this->registerSnapshotChange(\sprintf('Snapshot updated for %s', $snapshot->getId()));
     }
 
     private function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt(
         ExpectationFailedException $exception
     ): void {
-        $newMessage = sprintf(
+        $newMessage = \sprintf(
             '%s%s%s',
             $exception->getMessage(),
-            PHP_EOL . PHP_EOL,
+            \PHP_EOL . \PHP_EOL,
             'Snapshots can be updated by passing `-d --update-snapshots` through PHPUnit\'s CLI arguments.'
         );
 
-        $exceptionReflection = new ReflectionObject($exception);
+        $exceptionReflection = new \ReflectionObject($exception);
 
         $messageReflection = $exceptionReflection->getProperty('message');
         $messageReflection->setAccessible(true);
@@ -231,7 +221,7 @@ trait MatchesSnapshots
         }
 
         $this->fail(
-            sprintf("Snapshot \"%s\" does not exist.\n", $snapshotFileName) .
+            \sprintf("Snapshot \"%s\" does not exist.\n", $snapshotFileName) .
             'You can automatically create it by removing ' .
             '`-d --without-creating-snapshots` of PHPUnit\'s CLI arguments.'
         );

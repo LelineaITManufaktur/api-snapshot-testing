@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting\Wildcard;
 
-use InvalidArgumentException;
 use Webmozart\Assert\Assert;
 
 final class StringWildcard implements Wildcard
@@ -30,7 +29,7 @@ final class StringWildcard implements Wildcard
             Assert::string($mixed);
 
             return true;
-        } catch (InvalidArgumentException $exception) {
+        } catch (\InvalidArgumentException $exception) {
             return false;
         }
     }

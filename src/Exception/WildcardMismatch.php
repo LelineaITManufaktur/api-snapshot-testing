@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Lelinea\ApiSnapshotTesting\Exception;
 
-use Exception;
-use function sprintf;
-use function var_export;
-
-final class WildcardMismatch extends Exception
+final class WildcardMismatch extends \Exception
 {
     /**
      * @param mixed $value
@@ -18,6 +14,6 @@ final class WildcardMismatch extends Exception
         $message = 'Wildcard "%s" at path "%s" could not be performed.
                     Given value "%s" does not match the wildcards constraint.';
 
-        parent::__construct(sprintf($message, $wildcard, $path, var_export($value, true)));
+        parent::__construct(\sprintf($message, $wildcard, $path, \var_export($value, true)));
     }
 }
