@@ -18,10 +18,7 @@ final class IntegerWildcard implements Wildcard
         return $this->path;
     }
 
-    /**
-     * @param mixed $mixed
-     */
-    public function match($mixed): bool
+    public function match(mixed $mixed): bool
     {
         return \is_int($mixed);
     }

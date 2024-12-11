@@ -74,7 +74,7 @@ trait MatchesSnapshots
         array $wildcards = [],
         bool $skipHeader = true,
         string $fieldSeparator = ';',
-        string $fieldEnclosure = '"'
+        string $fieldEnclosure = '"',
     ): void {
         $this->doSnapshotAssertion($actual, new CsvDriver($fieldSeparator, $fieldEnclosure, $skipHeader), $requestUrl, $wildcards);
     }
@@ -127,7 +127,7 @@ trait MatchesSnapshots
         string $actual,
         Driver $driver,
         string $requestUrl,
-        array $wildcards = []
+        array $wildcards = [],
     ): void {
         ++$this->snapshotIncrementer;
 
@@ -191,7 +191,7 @@ trait MatchesSnapshots
     }
 
     private function rethrowExpectationFailedExceptionWithUpdateSnapshotsPrompt(
-        ExpectationFailedException $exception
+        ExpectationFailedException $exception,
     ): void {
         $newMessage = \sprintf(
             '%s%s%s',

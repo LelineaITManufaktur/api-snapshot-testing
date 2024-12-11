@@ -18,8 +18,6 @@ interface Wildcard
 
     /**
      * gets called to ensure a formal correct value.
-     *
-     * @param mixed $mixed
      */
-    public function match($mixed): bool;
+    public function match(mixed $mixed): bool;
 }

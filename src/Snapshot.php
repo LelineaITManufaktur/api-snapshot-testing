@@ -17,7 +17,7 @@ final class Snapshot
     private function __construct(
         string $id,
         string $content,
-        Driver $driver
+        Driver $driver,
     ) {
         $this->id      = $id;
         $this->driver  = $driver;
@@ -27,7 +27,7 @@ final class Snapshot
     public static function forTestCase(
         string $id,
         string $content,
-        Driver $driver
+        Driver $driver,
     ): self {
         return new self($id, $content, $driver);
     }

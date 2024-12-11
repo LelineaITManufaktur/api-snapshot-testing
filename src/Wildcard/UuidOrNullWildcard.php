@@ -20,10 +20,7 @@ final class UuidOrNullWildcard implements Wildcard
         return $this->path;
     }
 
-    /**
-     * @param mixed $mixed
-     */
-    public function match($mixed): bool
+    public function match(mixed $mixed): bool
     {
         if (null === $mixed) {
             return true;

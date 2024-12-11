@@ -97,7 +97,7 @@ final class CsvDriver implements Driver
         while (($row = fgetcsv($fp, 0, $this->fieldSeparator, $this->fieldEnclosure)) !== false) {
             $rows[] = array_map(static function ($rowData) {
                 return '' === $rowData ? null : $rowData;
-            }, $row ?? []);
+            }, $row);
         }
 
         if (count($rows) > 0 && $skipHeaders) {

@@ -14,9 +14,9 @@ final class XmlDriver implements Driver
 {
     public function serialize(string $xml, string $requestUrl): string
     {
-        $doc                     = new \DOMDocument();
+        $doc = new \DOMDocument();
         $doc->preserveWhiteSpace = false;
-        $doc->formatOutput       = true;
+        $doc->formatOutput = true;
 
         $doc->loadXML($xml);
 
@@ -37,11 +37,11 @@ final class XmlDriver implements Driver
         $this->assertFields($actualArray, $wildcards);
 
         $actualArray = $this->replaceFields($actualArray, $wildcards);
-        $actual      = (string) \json_encode($actualArray);
+        $actual = (string) \json_encode($actualArray);
 
         $expectedArray = $this->decode($expected);
         $expectedArray = $this->replaceFields($expectedArray, $wildcards);
-        $expected      = (string) \json_encode($expectedArray);
+        $expected = (string) \json_encode($expectedArray);
 
         Assert::assertJsonStringEqualsJsonString($expected, $actual);
     }
@@ -82,10 +82,8 @@ final class XmlDriver implements Driver
 
     /**
      * @throws CantBeSerialized
-     *
-     * @return mixed
      */
-    private function decode(string $data)
+    private function decode(string $data): mixed
     {
         $data = \simplexml_load_string($data);
 

@@ -21,10 +21,7 @@ abstract class BaseDateTimeWildcard implements Wildcard
         return $this->path;
     }
 
-    /**
-     * @param mixed $mixed
-     */
-    public function match($mixed): bool
+    public function match(mixed $mixed): bool
     {
         try {
             $dateTime = \DateTime::createFromFormat($this->format, $mixed);
