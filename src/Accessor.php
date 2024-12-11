@@ -31,11 +31,9 @@ final class Accessor
     }
 
     /**
-     * @param mixed $data
-     *
      * @return mixed[]
      */
-    private function buildDataPaths(Wildcard $wildcard, $data, string $pathPrefix): array
+    private function buildDataPaths(Wildcard $wildcard, mixed $data, string $pathPrefix): array
     {
         $paths = \explode('[*]', $pathPrefix . $wildcard->atPath());
         $dataPaths = ['' => $data];
@@ -78,10 +76,8 @@ final class Accessor
 
     /**
      * @param object|mixed[] $data
-     *
-     * @return mixed
      */
-    private function getValue($data, string $path)
+    private function getValue(mixed $data, string $path): mixed
     {
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
@@ -92,10 +88,7 @@ final class Accessor
         }
     }
 
-    /**
-     * @param mixed $value
-     */
-    private function assert(Wildcard $wildcard, $value, string $pathPrefix): void
+    private function assert(Wildcard $wildcard, mixed $value, string $pathPrefix): void
     {
         if (!$wildcard->match($value)) {
             throw new WildcardMismatch(\get_class($wildcard), $pathPrefix . $wildcard->atPath(), $value);

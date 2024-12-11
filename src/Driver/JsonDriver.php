@@ -82,10 +82,8 @@ final class JsonDriver implements Driver
 
     /**
      * @throws CantBeSerialized
-     *
-     * @return mixed
      */
-    private function decode(string $data)
+    private function decode(string $data): mixed
     {
         $data = \json_decode($data);
 

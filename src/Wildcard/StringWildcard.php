@@ -20,10 +20,7 @@ final class StringWildcard implements Wildcard
         return $this->path;
     }
 
-    /**
-     * @param mixed $mixed
-     */
-    public function match($mixed): bool
+    public function match(mixed $mixed): bool
     {
         try {
             Assert::string($mixed);

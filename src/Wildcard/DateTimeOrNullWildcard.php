@@ -6,10 +6,7 @@ namespace Lelinea\ApiSnapshotTesting\Wildcard;
 
 final class DateTimeOrNullWildcard extends BaseDateTimeWildcard
 {
-    /**
-     * @param mixed $mixed
-     */
-    public function match($mixed): bool
+    public function match(mixed $mixed): bool
     {
         if (null === $mixed) {
             return true;

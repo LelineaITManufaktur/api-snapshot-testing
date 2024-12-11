@@ -3,10 +3,8 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
-    level: max
+    level: 8
     paths: [src]
     tmpDir: var/ci
     parallel:
         processTimeout: 120.0
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false

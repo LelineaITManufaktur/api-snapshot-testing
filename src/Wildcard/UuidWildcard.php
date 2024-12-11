@@ -20,11 +20,12 @@ final class UuidWildcard implements Wildcard
         return $this->path;
     }
 
-    /**
-     * @param mixed $mixed
-     */
-    public function match($mixed): bool
+    public function match(mixed $mixed): bool
     {
+        if (!is_string($mixed)) {
+            return false;
+        }
+
         try {
             Assert::uuid($mixed);
 
